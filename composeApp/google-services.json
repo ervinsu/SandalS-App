@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "562395887285",
+    "project_id": "sandals-469310",
+    "storage_bucket": "sandals-469310.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562395887285:android:e182eaa71984ffcd5d30fc",
+        "android_client_info": {
+          "package_name": "com.shobaaa.id.sandals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562395887285-ooabdtfrs1immsk32udj90q77phdqg47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shobaaa.id.sandals",
+            "certificate_hash": "ef4babbacb612f7dfb5e77ae877822d46e6d249d"
+          }
+        },
+        {
+          "client_id": "562395887285-93g34ji008klfdggeurjmq1rem80paak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkjRFt96-Dk4z8W0hexYy3XUrIa4V-IMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562395887285-93g34ji008klfdggeurjmq1rem80paak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
