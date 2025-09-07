@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -22,7 +21,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "navigation"
+            baseName = "auth"
             isStatic = true
         }
     }
@@ -44,14 +43,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-          implementation(libs.kotlinx.serialization)
-            implementation(libs.compose.navigation)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
 
-            implementation(project(path = ":feature:auth"))
-            implementation(project(path = ":feature:home"))
             implementation(project(path = ":shared"))
-
-            implementation(libs.messagebar.kmp)
+            implementation(project(path = ":data"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -60,7 +56,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.shobaaa.id.navigation"
+    namespace = "com.shobaaa.id.auth"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
