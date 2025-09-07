@@ -44,7 +44,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-          implementation(libs.kotlinx.serialization)
+            implementation(libs.kotlinx.serialization)
             implementation(libs.compose.navigation)
 
             implementation(project(path = ":feature:auth"))
