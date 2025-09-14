@@ -1,6 +1,9 @@
 package com.shobaaa.id.data.domain
 
+import com.shobaaa.id.shared.domain.Customer
+import com.shobaaa.id.shared.util.RequestState
 import dev.gitlive.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.Flow
 
 interface CustomerRepository {
 
@@ -11,4 +14,8 @@ interface CustomerRepository {
   )
 
   fun getCurrentUserId(): String?
+
+  suspend fun signOut(): RequestState<Unit>
+
+  fun readCustomerFlow(): Flow<RequestState<Customer>>
 }
