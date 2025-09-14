@@ -5,6 +5,8 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -130,6 +132,14 @@ fun HomeGraphScreen(
           ambientColor = Color.Black.copy(alpha = Alpha.DISABLED),
           spotColor = Color.Black.copy(alpha = Alpha.DISABLED)
         )
+        .clickable(
+          indication = null,
+          interactionSource = remember { MutableInteractionSource() }
+        ) {
+          if (drawerState.isOpened()) {
+            drawerState = drawerState.opposite()
+          }
+        }
     ) {
       Scaffold(
         containerColor = Surface,
