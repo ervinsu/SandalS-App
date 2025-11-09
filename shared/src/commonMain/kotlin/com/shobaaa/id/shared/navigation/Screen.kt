@@ -12,6 +12,9 @@ sealed class Screen {
   data object HomeGraph: Screen()
 
   @Serializable
+  data object AdminPanel : Screen()
+
+  @Serializable
   data object ProductsOverview: Screen()
 
   @Serializable

@@ -64,7 +64,8 @@ import rememberMessageBarState
 
 @OptIn(ExperimentalMaterial3Api::class) @Composable
 fun HomeGraphScreen(
-  navigateToAuth: () -> Unit
+  navigateToAuth: () -> Unit,
+  navigateToAdmin: () -> Unit
 ) {
   val navController = rememberNavController()
   val currentRoute = navController.currentBackStackEntryAsState()
@@ -119,7 +120,9 @@ fun HomeGraphScreen(
         )
       },
       onContactUsClick = {},
-      onAdminPanelClick = {},
+      onAdminPanelClick = {
+        navigateToAdmin.invoke()
+      },
       customer = customer
     )
     Box(

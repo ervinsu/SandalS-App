@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.shobaaa.id.admin_panel.AdminPanelScreen
 import com.shobaaa.id.auth.AuthScreen
 import com.shobaaa.id.home.HomeGraphScreen
 import com.shobaaa.id.shared.navigation.Screen
@@ -31,7 +32,19 @@ fun SetupNavGraph(startDestination: Screen = Screen.Auth) {
           navController.navigate(Screen.Auth) {
             popUpTo<Screen.HomeGraph> { inclusive = true }
           }
+        },
+        navigateToAdmin = {
+          navController.navigate(Screen.Auth) {
+            popUpTo<Screen.AdminPanel> { inclusive = true }
+          }
         }
+      )
+    }
+
+    composable<Screen.AdminPanel> {
+      AdminPanelScreen(
+        navigateBack = { },
+        navigateToManageProduct = { }
       )
     }
   }
