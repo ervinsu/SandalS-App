@@ -19,6 +19,13 @@ import com.shobaaa.id.shared.FontSize
 import com.shobaaa.id.shared.IconPrimary
 import com.shobaaa.id.shared.TextPrimary
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import sandals.shared.generated.resources.Res
+import sandals.shared.generated.resources.blog
+import sandals.shared.generated.resources.contact_us
+import sandals.shared.generated.resources.location
+import sandals.shared.generated.resources.profile
+import sandals.shared.generated.resources.sign_out
 
 @Composable
 fun DrawerItemCard(
@@ -43,9 +50,21 @@ fun DrawerItemCard(
     )
     Spacer(modifier = Modifier.width(12.dp))
     Text(
-      text = drawerItem.title,
+      text = getTitleText(drawerItem.title),
       color = TextPrimary,
       fontSize = FontSize.EXTRA_REGULAR
     )
+  }
+}
+
+@Composable
+private fun getTitleText(text: String): String {
+  return when (text) {
+    "Profile" -> stringResource(Res.string.profile)
+    "Blog" -> stringResource(Res.string.blog)
+    "Location" -> stringResource(Res.string.location)
+    "Contact Us" -> stringResource(Res.string.contact_us)
+    "Sign out" -> stringResource(Res.string.sign_out)
+    else -> text
   }
 }

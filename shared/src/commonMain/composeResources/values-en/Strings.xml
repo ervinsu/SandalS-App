@@ -1,0 +1,12 @@
+<resources>
+    <string name ="add_product">Add Product</string>
+    <string name ="add_new_product">Add New Product</string>
+    <string name ="new_product">New Product</string>
+    <string name ="edit_product">Edit Product</string>
+    <string name ="profile">Profile</string>
+    <string name ="blog">Blog</string>
+    <string name ="location">Location</string>
+    <string name ="contact_us">Contact Us</string>
+    <string name ="sign_out">Sign Out</string>
+    <string name ="admin_panel">Admin Panel</string>
+</resources>

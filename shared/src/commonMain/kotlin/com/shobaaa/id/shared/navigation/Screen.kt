@@ -22,4 +22,9 @@ sealed class Screen {
 
   @Serializable
   data object Categories: Screen()
+
+  @Serializable
+  data class ManageProduct(
+    val id: String? = null
+  ): Screen()
 }

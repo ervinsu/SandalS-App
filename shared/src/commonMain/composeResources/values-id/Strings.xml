@@ -1,0 +1,12 @@
+<resources>
+    <string name ="add_product">Tambah Produk</string>
+    <string name ="add_new_product">Tambah Produk Baru</string>
+    <string name ="new_product">Produk Baru</string>
+    <string name ="edit_product">Ubah Produk</string>
+    <string name ="profile">Profil</string>
+    <string name ="blog">Blog</string>
+    <string name ="location">Lokasi</string>
+    <string name ="contact_us">Hubungi kami</string>
+    <string name ="sign_out">Keluar</string>
+    <string name ="admin_panel">Panel Admin</string>
+</resources>

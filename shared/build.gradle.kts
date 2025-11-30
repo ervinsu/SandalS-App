@@ -8,6 +8,10 @@ plugins {
     alias(libs.plugins.serialization)
 }
 
+compose.resources {
+    publicResClass = true
+}
+
 kotlin {
     androidTarget {
         compilerOptions {

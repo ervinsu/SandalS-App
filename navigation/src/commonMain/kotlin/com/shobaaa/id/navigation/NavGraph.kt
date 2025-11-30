@@ -1,9 +1,11 @@
 package com.shobaaa.id.navigation
 
+import ManageProductScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.shobaaa.id.admin_panel.AdminPanelScreen
 import com.shobaaa.id.auth.AuthScreen
 import com.shobaaa.id.home.HomeGraphScreen
@@ -34,7 +36,7 @@ fun SetupNavGraph(startDestination: Screen = Screen.Auth) {
           }
         },
         navigateToAdmin = {
-          navController.navigate(Screen.Auth) {
+          navController.navigate(Screen.AdminPanel) {
             popUpTo<Screen.AdminPanel> { inclusive = true }
           }
         }
@@ -43,9 +45,17 @@ fun SetupNavGraph(startDestination: Screen = Screen.Auth) {
 
     composable<Screen.AdminPanel> {
       AdminPanelScreen(
-        navigateBack = { },
-        navigateToManageProduct = { }
+        navigateBack = { navController.navigateUp() },
+        navigateToManageProduct = {
+          navController.navigate(Screen.ManageProduct(id = it))
+        }
       )
+    }
+
+    composable<Screen.ManageProduct> {
+      val id = it.toRoute<Screen.ManageProduct>().id
+      ManageProductScreen(
+        id = id, navigateBack = { navController.navigateUp() })
     }
   }
 }

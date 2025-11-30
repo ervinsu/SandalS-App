@@ -18,6 +18,7 @@ data class Product(
   val category: String,
   val colors: List<String>? = null,
   val size: Int? = null,
+  val stock: Int = 0,
   val price: Double,
   val isPopular: Boolean = false,
   val isDiscounted: Boolean = false,
@@ -29,11 +30,11 @@ enum class ProductCategory(
   val color: Color
 ) {
   Shoes(
-    title = "Shoes",
+    title = "Sepatu",
     color = CategoryYellow
   ),
   Bag(
-    title = "Bag",
+    title = "Tas",
     color = CategoryBlue
   ),
 }

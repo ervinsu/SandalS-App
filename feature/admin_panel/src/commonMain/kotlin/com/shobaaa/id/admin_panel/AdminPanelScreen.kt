@@ -1,7 +1,6 @@
 package com.shobaaa.id.admin_panel
 
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.IconButton
@@ -18,6 +17,9 @@ import com.shobaaa.id.shared.Resources
 import com.shobaaa.id.shared.Surface
 import com.shobaaa.id.shared.TextPrimary
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import sandals.shared.generated.resources.Res
+import sandals.shared.generated.resources.admin_panel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +32,7 @@ fun AdminPanelScreen(
     TopAppBar(
       title = {
         Text(
-          text = "Admin Panel",
+          text = stringResource( Res.string.admin_panel),
           fontFamily = BebasNeueFont(),
           fontSize = FontSize.LARGE,
           color = TextPrimary
