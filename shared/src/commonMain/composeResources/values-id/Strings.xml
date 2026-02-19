@@ -9,4 +9,18 @@
     <string name ="contact_us">Hubungi kami</string>
     <string name ="sign_out">Keluar</string>
     <string name ="admin_panel">Panel Admin</string>
+    <string name ="description">Deskripsi</string>
+    <string name ="title">Judul</string>
+    <string name ="size">Ukuran</string>
+    <string name ="color">Warna</string>
+    <string name ="ok">Oke</string>
+    <string name ="cancel">Batal</string>
+    <string name ="price">Harga</string>
+    <string name ="select_category">Tolong pilih kategori</string>
+    <string name ="select_size">Tolong lengkapi ukuran</string>
+    <string name ="stock">Stok</string>
+    <string name ="add_new_size">Tambah Stok baru</string>
+    <string name ="error_edit_size">Stok atau ukuran belum lengkap</string>
+    <string name ="success_add_product">Berhasil menambahkan produk</string>
+    <string name ="success_edit_product">Berhasil mengubah produk</string>
 </resources>

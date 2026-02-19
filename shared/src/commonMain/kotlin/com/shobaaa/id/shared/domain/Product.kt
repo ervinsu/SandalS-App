@@ -14,12 +14,11 @@ data class Product(
   val createdAt: Long = Clock.System.now().toEpochMilliseconds(),
   val title: String,
   val description: String,
-  val thumbnail: String,
+  val thumbnail: String = "Not empty",
   val category: String,
-  val colors: List<String>? = null,
-  val size: Int? = null,
-  val stock: Int = 0,
   val price: Double,
+  val size: List<ProductSize> = listOf(),
+  val color: String? = null,
   val isPopular: Boolean = false,
   val isDiscounted: Boolean = false,
   val isNew: Boolean = false
@@ -38,3 +37,9 @@ enum class ProductCategory(
     color = CategoryBlue
   ),
 }
+
+@Serializable
+data class ProductSize(
+  var size: Int? = null,
+  var stock: Int = 0,
+)

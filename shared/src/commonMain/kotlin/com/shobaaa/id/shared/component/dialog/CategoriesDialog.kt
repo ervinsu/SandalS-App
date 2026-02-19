@@ -36,7 +36,12 @@ import com.shobaaa.id.shared.Surface
 import com.shobaaa.id.shared.TextPrimary
 import com.shobaaa.id.shared.TextSecondary
 import com.shobaaa.id.shared.domain.ProductCategory
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import sandals.shared.generated.resources.Res
+import sandals.shared.generated.resources.cancel
+import sandals.shared.generated.resources.ok
 
 @Composable
 fun CategoriesDialog(
@@ -110,7 +115,7 @@ fun CategoriesDialog(
         )
       ) {
         Text(
-          text = "Confirm",
+          text = stringResource(Res.string.ok),
           fontSize = FontSize.REGULAR,
           fontWeight = FontWeight.Medium
         )
@@ -125,7 +130,7 @@ fun CategoriesDialog(
         )
       ) {
         Text(
-          text = "Cancel",
+          text = stringResource(Res.string.cancel),
           fontSize = FontSize.REGULAR,
           fontWeight = FontWeight.Medium
         )

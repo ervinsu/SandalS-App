@@ -37,7 +37,7 @@ fun CustomDrawer(
     Spacer(modifier = Modifier.height(50.dp))
     Text(
       modifier = Modifier.fillMaxWidth(),
-      text = "NUTRISPORT",
+      text = "SANDALS",
       textAlign = TextAlign.Center,
       color = TextSecondary,
       fontFamily = BebasNeueFont(),
@@ -45,7 +45,7 @@ fun CustomDrawer(
     )
     Text(
       modifier = Modifier.fillMaxWidth(),
-      text = "Healthy Lifestyle",
+      text = "New Lifestyle",
       textAlign = TextAlign.Center,
       color = TextPrimary,
       fontSize = FontSize.REGULAR

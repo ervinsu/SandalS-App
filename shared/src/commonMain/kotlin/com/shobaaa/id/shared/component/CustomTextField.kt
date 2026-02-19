@@ -35,6 +35,7 @@ fun CustomTextField(
   error: Boolean = false,
   expanded: Boolean = false,
   keyboardOptions: KeyboardOptions = KeyboardOptions(
+    autoCorrect = false,
     keyboardType = KeyboardType.Text
   )
 ) {
