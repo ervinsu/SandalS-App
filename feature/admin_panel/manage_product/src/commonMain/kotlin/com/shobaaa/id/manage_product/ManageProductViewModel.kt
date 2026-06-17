@@ -156,4 +156,22 @@ class ManageProductViewModel(
       }
     }
   }
+
+  fun deleteThumbnailFromStorage(
+    onSuccess: () -> Unit,
+    onError: (String) -> Unit
+  ) {
+    viewModelScope.launch {
+      adminRepository.deleteImageFromStorage(
+        downloadUrl = screenState.thumbnail,
+        onSuccess = {
+          updateThumbnail("")
+          onSuccess()
+          updateThumbnailUploaderState(RequestState.Idle)
+        },
+        onError = onError
+      )
+
+    }
+  }
 }

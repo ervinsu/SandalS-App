@@ -241,42 +241,36 @@ fun ManageProductScreen(
                 LoadingCard(modifier = Modifier.fillMaxSize())
               },
               onSuccess = {
-                AsyncImage(
-                  modifier = Modifier.fillMaxSize(),
-                  model = ImageRequest.Builder(
-                    LocalPlatformContext.current
-                  ).data(screenState.thumbnail)
-                    .crossfade(enable = true)
-                    .build(),
-                  contentDescription = "Product thumbnail image",
-                  contentScale = ContentScale.Crop
-                )
                 Box(
-                  modifier = Modifier
-                    .clip(RoundedCornerShape(size = 6.dp))
-                    .padding(
-                      top = 12.dp,
-                      end = 12.dp
-                    )
-                    .background(ButtonPrimary)
-                    .clickable {
-//                      viewModel.deleteThumbnailFromStorage(
-//                        onSuccess = { messageBarState.addSuccess("Thumbnail removed successfully.") },
-//                        onError = { message ->
-//                          messageBarState.addError(
-//                            message
-//                          )
-//                        }
-//                      )
-                    }
-                    .padding(all = 12.dp),
-                  contentAlignment = Alignment.Center
+                  modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd
                 ) {
-                  Icon(
-                    modifier = Modifier.size(14.dp),
-                    painter = painterResource(Resources.Icon.Delete),
-                    contentDescription = "Delete icon"
+                  AsyncImage(
+                    modifier = Modifier.fillMaxSize(),
+                    model = ImageRequest.Builder(
+                      LocalPlatformContext.current
+                    ).data(screenState.thumbnail).crossfade(enable = true).build(),
+                    contentDescription = "Product thumbnail image",
+                    contentScale = ContentScale.Crop
                   )
+                  Box(
+                    modifier = Modifier.clip(RoundedCornerShape(size = 6.dp)).padding(
+                      top = 12.dp, end = 12.dp
+                    ).background(ButtonPrimary).clickable {
+                      viewModel.deleteThumbnailFromStorage(
+                        onSuccess = { messageBarState.addSuccess("Thumbnail removed successfully.") },
+                        onError = { message ->
+                          messageBarState.addError(
+                            message
+                          )
+                        }
+                      )
+                    }.padding(all = 12.dp), contentAlignment = Alignment.Center) {
+                    Icon(
+                      modifier = Modifier.size(14.dp),
+                      painter = painterResource(Resources.Icon.Delete),
+                      contentDescription = "Delete icon"
+                    )
+                  }
                 }
               },
               onError = { message ->
@@ -306,13 +300,11 @@ fun ManageProductScreen(
             )
           }
           TextField(
-            value = screenState.title,
-            onValueChange = {},
-            keyboardOptions = KeyboardOptions(
+            value = screenState.title, onValueChange = {}, keyboardOptions = KeyboardOptions(
               capitalization = KeyboardCapitalization.Characters,
               autoCorrect = false,
-          keyboardType = KeyboardType.Text
-          )
+              keyboardType = KeyboardType.Text
+            )
           )
           CustomTextField(
             value = screenState.title,
