@@ -137,7 +137,7 @@ fun ManageProductScreen(
     visible = showSizeDialog
   ) {
     SizeDialog(
-      productSizes = screenState.productSizes,
+      productSizes = screenState.productSizes.orEmpty(),
       onDismiss = {
         showSizeDialog = false
       },
@@ -299,13 +299,6 @@ fun ManageProductScreen(
               }
             )
           }
-          TextField(
-            value = screenState.title, onValueChange = {}, keyboardOptions = KeyboardOptions(
-              capitalization = KeyboardCapitalization.Characters,
-              autoCorrect = false,
-              keyboardType = KeyboardType.Text
-            )
-          )
           CustomTextField(
             value = screenState.title,
             onValueChange = { viewModel.updateTitle(it) },
@@ -325,7 +318,7 @@ fun ManageProductScreen(
               showCategoriesDialog = true
             }
           )
-          if (screenState.productSizes.isNotEmpty()) {
+          if (screenState.productSizes?.isNotEmpty() == true) {
             Column (Modifier.clickable(onClick = {
               showSizeDialog = true
             })) {
@@ -349,7 +342,7 @@ fun ManageProductScreen(
                   fontWeight = FontWeight.Medium
                 )
               }
-              screenState.productSizes.forEach {
+              screenState.productSizes?.forEach {
                 Row(
                   modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(size = 6.dp)).padding(
                     vertical = 16.dp, horizontal = 12.dp
@@ -373,13 +366,23 @@ fun ManageProductScreen(
               }
             }
           } else {
-            AlertTextField(
-              modifier = Modifier.fillMaxWidth(),
-              text = stringResource(Res.string.size),
-              onClick = {
-                showSizeDialog = true
-              }
-            )
+            if (screenState.category == ProductCategory.Shoes) {
+              AlertTextField(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(Res.string.size),
+                onClick = {
+                  showSizeDialog = true
+                })
+            } else {
+              CustomTextField(
+                value = "${if (screenState.totalProductStock == 0) "" else screenState.totalProductStock}",
+                onValueChange = { viewModel.updateStock(it.toIntOrNull()?: 0) },
+                placeholder = stringResource(Res.string.stock),
+                keyboardOptions = KeyboardOptions(
+                  keyboardType = KeyboardType.Number
+                )
+              )
+            }
           }
           CustomTextField(
             value = screenState.color,

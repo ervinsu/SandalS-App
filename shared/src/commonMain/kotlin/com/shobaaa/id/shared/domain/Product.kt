@@ -17,8 +17,9 @@ data class Product(
   val thumbnail: String = "Not empty",
   val category: String,
   val price: Double,
-  val size: List<ProductSize> = listOf(),
+  val size: List<ProductSize>? = null,
   val color: String? = null,
+  val totalStock: Int? = null,
   val isPopular: Boolean = false,
   val isDiscounted: Boolean = false,
   val isNew: Boolean = false

@@ -1,5 +1,6 @@
 package com.shobaaa.id.di
 
+import com.shobaaa.id.admin_panel.AdminPanelViewModel
 import com.shobaaa.id.auth.AuthViewModel
 import com.shobaaa.id.data.AdminRepositoryImpl
 import com.shobaaa.id.data.CustomerRepositoryImpl
@@ -20,6 +21,7 @@ val sharedModule = module {
   viewModelOf(::AuthViewModel)
   viewModelOf(::ManageProductViewModel)
   viewModelOf(::HomeGraphViewModel)
+  viewModelOf(::AdminPanelViewModel)
 }
 
 expect val targetModule: Module

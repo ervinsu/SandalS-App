@@ -1,7 +1,9 @@
 package com.shobaaa.id.data.domain
 
 import com.shobaaa.id.shared.domain.Product
+import com.shobaaa.id.shared.util.RequestState
 import dev.gitlive.firebase.storage.File
+import kotlinx.coroutines.flow.Flow
 
 interface AdminRepository {
 
@@ -20,4 +22,6 @@ interface AdminRepository {
     onSuccess: () -> Unit,
     onError: (String) -> Unit
   )
+
+  fun loadListProduct(limit: Int): Flow<RequestState<List<Product>>>
 }

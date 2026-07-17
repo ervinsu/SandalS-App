@@ -23,11 +23,12 @@ data class ManageProductState(
   val createdAt: Long = Clock.System.now().toEpochMilliseconds(),
   val title: String = "",
   val description: String = "",
-  val thumbnail: String = "thumbnail image",
+  val thumbnail: String = "",
   val category: ProductCategory = ProductCategory.Shoes,
-  val productSizes: List<ProductSize> = emptyList(),
+  val productSizes: List<ProductSize>? = null,
   val price: Double = 0.0,
   val color: String = "",
+  val totalProductStock: Int = 0,
   val isNew: Boolean = false,
   val isPopular: Boolean = false,
   val isDiscounted: Boolean = false
@@ -45,7 +46,7 @@ class ManageProductViewModel(
         screenState.description.isNotEmpty() &&
         screenState.price != 0.0 &&
         screenState.thumbnail.isNotEmpty() &&
-        screenState.productSizes.isNotEmpty() &&
+        (if (screenState.category == ProductCategory.Shoes) { screenState.productSizes?.isNotEmpty() == true } else true)  &&
         screenState.color.isNotEmpty() &&
         screenState.category.name.isNotEmpty()
 
@@ -81,11 +82,16 @@ class ManageProductViewModel(
   }
 
   fun updateSize(value: List<ProductSize>) {
-    screenState = screenState.copy(productSizes = value)
+    val totalProduct = value.sumOf { it.stock }
+    screenState = screenState.copy(productSizes = value, totalProductStock = totalProduct)
   }
 
   fun updatePrice(value: Double) {
     screenState = screenState.copy(price = value)
+  }
+
+  fun updateStock(value: Int) {
+    screenState = screenState.copy(totalProductStock = value)
   }
 
   fun updateColor(value: String) {
@@ -119,6 +125,7 @@ class ManageProductViewModel(
             category = category.name,
             size = productSizes,
             price = price,
+            totalStock = totalProductStock,
             color = color
           ), {
             onSuccess()
