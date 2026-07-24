@@ -18,8 +18,8 @@ data class Product(
   val category: String,
   val price: Double,
   val size: List<ProductSize>? = null,
-  val color: String? = null,
-  val totalStock: Int? = null,
+  val color: String = "",
+  val totalStock: Int = 0,
   val isPopular: Boolean = false,
   val isDiscounted: Boolean = false,
   val isNew: Boolean = false

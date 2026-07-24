@@ -1,15 +1,12 @@
 package com.shobaaa.id.shared.component
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -56,7 +53,6 @@ fun ProductCard(
   Row(
     modifier = modifier
     .fillMaxWidth()
-    .height(IntrinsicSize.Min)
     .clip(RoundedCornerShape(size = 12.dp))
     .border(
     width = 1.dp,
@@ -68,7 +64,7 @@ fun ProductCard(
   ) {
     AsyncImage(
       modifier = Modifier
-        .width(120.dp)
+        .size(width = 120.dp, height = 120.dp)
         .clip(RoundedCornerShape(size = 12.dp))
         .border(
           width = 1.dp,
@@ -115,22 +111,18 @@ fun ProductCard(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
       ) {
-        AnimatedContent(
-          targetState = product.category
-        ) { category ->
-          Row(
-            verticalAlignment = Alignment.CenterVertically
-          ) {
-            Icon(
-              modifier = Modifier.size(14.dp),
-              painter = painterResource(Resources.Icon.ShoppingCart),
-              contentDescription = "Stock icon"
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-              text = "${stringResource(Res.string.stock)}: ${product.totalStock ?: 0}", fontSize = FontSize.EXTRA_SMALL, color = TextPrimary
-            )
-          }
+        Row(
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Icon(
+            modifier = Modifier.size(14.dp),
+            painter = painterResource(Resources.Icon.ShoppingCart),
+            contentDescription = "Stock icon"
+          )
+          Spacer(modifier = Modifier.width(4.dp))
+          Text(
+            text = "${stringResource(Res.string.stock)}: ${product.totalStock}", fontSize = FontSize.EXTRA_SMALL, color = TextPrimary
+          )
         }
         Text(
           text = "Rp. ${product.price}",

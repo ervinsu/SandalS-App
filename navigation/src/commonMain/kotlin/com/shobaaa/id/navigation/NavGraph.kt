@@ -1,6 +1,6 @@
 package com.shobaaa.id.navigation
 
-import ManageProductScreen
+import com.shobaaa.id.manage_product.ManageProductScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable

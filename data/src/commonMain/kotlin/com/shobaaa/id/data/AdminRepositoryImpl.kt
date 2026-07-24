@@ -109,6 +109,42 @@ class AdminRepositoryImpl: AdminRepository {
     }
   }
 
+  override suspend fun readProductById(id: String): RequestState<Product> {
+    return try {
+      val userId = getCurrentUserId()
+      if (userId != null) {
+        val database = Firebase.firestore
+        val productDoc = database.collection(collectionPath = "product")
+          .document(id)
+          .get()
+        if (productDoc.exists) {
+          val product = Product(
+            id = productDoc.id,
+            title = productDoc.get(field = "title"),
+            createdAt = productDoc.get(field = "createdAt"),
+            description = productDoc.get(field = "description"),
+            thumbnail = productDoc.get(field = "thumbnail"),
+            category = productDoc.get(field = "category"),
+            totalStock = productDoc.get(field = "totalStock"),
+            size = productDoc.get<List<ProductSize>?>(field = "size"),
+            price = productDoc.get(field = "price"),
+            isPopular = productDoc.get(field = "isPopular"),
+            isDiscounted = productDoc.get(field = "isDiscounted"),
+            isNew = productDoc.get(field = "isNew"),
+            color = productDoc.get(field = "color")
+          )
+          RequestState.Success(product)
+        } else {
+          RequestState.Error("Product Not Found")
+        }
+      } else {
+        RequestState.Error("User Not Found")
+      }
+    } catch (e: Exception) {
+      RequestState.Error("Error while reading product: $e")
+    }
+  }
+
   private fun extractFirebaseStoragePath(downloadUrl: String): String? {
     val startIndex = downloadUrl.indexOf("/o/") + 3
 

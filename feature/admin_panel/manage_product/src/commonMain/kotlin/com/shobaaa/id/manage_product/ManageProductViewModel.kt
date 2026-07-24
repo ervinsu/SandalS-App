@@ -3,6 +3,7 @@ package com.shobaaa.id.manage_product
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shobaaa.id.data.domain.AdminRepository
@@ -36,7 +37,36 @@ data class ManageProductState(
 
 class ManageProductViewModel(
   private val adminRepository: AdminRepository,
+  private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+  private val productId = savedStateHandle.get<String>("id") ?: ""
+
+  init {
+    productId.takeIf { it.isNotEmpty() }?.let {
+      viewModelScope.launch {
+        val selectedProduct = adminRepository.readProductById(it)
+        if (selectedProduct.isSuccess()) {
+          val product = selectedProduct.getSuccessData()
+
+          updateId(product.id)
+          updateCreatedAt(product.createdAt)
+          updateTitle(product.title)
+          updateDescription(product.description)
+          updateThumbnail(product.thumbnail)
+          updateThumbnailUploaderState(RequestState.Success(Unit))
+          updateCategory(ProductCategory.valueOf(product.category))
+          updateSize(product.size.orEmpty())
+          updatePrice(product.price)
+          updateStock(product.totalStock)
+          updateColor(product.color)
+          updateNew(product.isNew)
+          updatePopular(product.isPopular)
+          updateDiscounted(product.isDiscounted)
+        }
+      }
+    }
+  }
 
   var thumbnailUploaderState by mutableStateOf<RequestState<Unit>>(RequestState.Idle)
     private set

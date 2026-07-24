@@ -1,3 +1,6 @@
+package com.shobaaa.id.manage_product
+
+import ContentWithMessageBar
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,7 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -24,7 +26,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -38,15 +39,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.shobaaa.id.manage_product.ManageProductViewModel
-import com.shobaaa.id.manage_product.PhotoPicker
 import com.shobaaa.id.shared.BebasNeueFont
 import com.shobaaa.id.shared.BorderIdle
 import com.shobaaa.id.shared.ButtonPrimary
@@ -68,12 +66,14 @@ import com.shobaaa.id.shared.component.PrimaryButton
 import com.shobaaa.id.shared.component.dialog.CategoriesDialog
 import com.shobaaa.id.shared.component.dialog.SizeDialog
 import com.shobaaa.id.shared.domain.ProductCategory
+import com.shobaaa.id.shared.domain.ProductSize
 import com.shobaaa.id.shared.util.DisplayResult
 import com.shobaaa.id.shared.util.RequestState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import rememberMessageBarState
 import sandals.shared.generated.resources.Res
 import sandals.shared.generated.resources.add_new_product
 import sandals.shared.generated.resources.color
@@ -197,12 +197,12 @@ fun ManageProductScreen(
 
       Column(
         modifier = Modifier
+          .fillMaxSize()
           .padding(horizontal = 24.dp)
           .padding(
             bottom = 24.dp,
             top = 12.dp
           )
-          .imePadding()
       ) {
 
         Column(
@@ -318,71 +318,26 @@ fun ManageProductScreen(
               showCategoriesDialog = true
             }
           )
-          if (screenState.productSizes?.isNotEmpty() == true) {
-            Column (Modifier.clickable(onClick = {
+
+          if (screenState.category == ProductCategory.Shoes) {
+            ShoesSizeView(productSize = screenState.productSizes.orEmpty(), {
               showSizeDialog = true
-            })) {
-              Row(
-                modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(size = 6.dp)).padding(
-                  vertical = 16.dp, horizontal = 12.dp
-                ), horizontalArrangement = Arrangement.spacedBy(8.dp)
-              ) {
-                if (screenState.category == ProductCategory.Shoes) {
-                  Text(
-                    modifier = Modifier.weight(1f),
-                    text = stringResource(Res.string.size),
-                    fontSize = FontSize.REGULAR,
-                    fontWeight = FontWeight.Medium
-                  )
-                }
-                Text(
-                  modifier = Modifier.weight(1f),
-                  text = stringResource(Res.string.stock),
-                  fontSize = FontSize.REGULAR,
-                  fontWeight = FontWeight.Medium
-                )
-              }
-              screenState.productSizes?.forEach {
-                Row(
-                  modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(size = 6.dp)).padding(
-                    vertical = 16.dp, horizontal = 12.dp
-                  ).border(1.dp, BorderIdle, RoundedCornerShape(size = 6.dp)), horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                  if (screenState.category == ProductCategory.Shoes) {
-                    Text(
-                      modifier = Modifier.weight(1f),
-                      text = it.size.toString(),
-                      fontSize = FontSize.REGULAR,
-                      fontWeight = FontWeight.Medium
-                    )
-                  }
-                  Text(
-                    modifier = Modifier.weight(1f),
-                    text = it.stock.toString(),
-                    fontSize = FontSize.REGULAR,
-                    fontWeight = FontWeight.Medium
-                  )
-                }
-              }
-            }
+            })
+            AlertTextField(
+              modifier = Modifier.fillMaxWidth(),
+              text = stringResource(Res.string.size),
+              onClick = {
+                showSizeDialog = true
+              })
           } else {
-            if (screenState.category == ProductCategory.Shoes) {
-              AlertTextField(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(Res.string.size),
-                onClick = {
-                  showSizeDialog = true
-                })
-            } else {
-              CustomTextField(
-                value = "${if (screenState.totalProductStock == 0) "" else screenState.totalProductStock}",
-                onValueChange = { viewModel.updateStock(it.toIntOrNull()?: 0) },
-                placeholder = stringResource(Res.string.stock),
-                keyboardOptions = KeyboardOptions(
-                  keyboardType = KeyboardType.Number
-                )
+            CustomTextField(
+              value = "${if (screenState.totalProductStock == 0) "" else screenState.totalProductStock}",
+              onValueChange = { viewModel.updateStock(it.toIntOrNull()?: 0) },
+              placeholder = stringResource(Res.string.stock),
+              keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number
               )
-            }
+            )
           }
           CustomTextField(
             value = screenState.color,
@@ -404,10 +359,60 @@ fun ManageProductScreen(
           else Resources.Icon.Checkmark, enabled = isFormValid, onClick = {
             viewModel.createProduct(onSuccess = {
               messageBarState.addSuccess(successAddProduct)
+              navigateBack()
             }, onError = {
               messageBarState.addError(it)
             })
           })
+      }
+    }
+  }
+}
+
+@Composable
+private fun ShoesSizeView(productSize: List<ProductSize>, onShowSizeDialog: () -> Unit) {
+  if (productSize.isNotEmpty()) {
+    Column(Modifier.clickable(onClick = {
+      onShowSizeDialog()
+    })) {
+      Row(
+        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(size = 6.dp)).padding(
+          vertical = 16.dp, horizontal = 12.dp
+        ), horizontalArrangement = Arrangement.spacedBy(8.dp)
+      ) {
+        Text(
+          modifier = Modifier.weight(1f),
+          text = stringResource(Res.string.size),
+          fontSize = FontSize.REGULAR,
+          fontWeight = FontWeight.Medium
+        )
+        Text(
+          modifier = Modifier.weight(1f),
+          text = stringResource(Res.string.stock),
+          fontSize = FontSize.REGULAR,
+          fontWeight = FontWeight.Medium
+        )
+      }
+      productSize.forEach {
+        Row(
+          modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(size = 6.dp)).padding(
+            vertical = 16.dp, horizontal = 12.dp
+          ).border(1.dp, BorderIdle, RoundedCornerShape(size = 6.dp)),
+          horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+          Text(
+            modifier = Modifier.weight(1f),
+            text = it.size.toString(),
+            fontSize = FontSize.REGULAR,
+            fontWeight = FontWeight.Medium
+          )
+          Text(
+            modifier = Modifier.weight(1f),
+            text = it.stock.toString(),
+            fontSize = FontSize.REGULAR,
+            fontWeight = FontWeight.Medium
+          )
+        }
       }
     }
   }

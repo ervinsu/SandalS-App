@@ -24,4 +24,6 @@ interface AdminRepository {
   )
 
   fun loadListProduct(limit: Int): Flow<RequestState<List<Product>>>
+
+  suspend fun readProductById(id: String): RequestState<Product>
 }
