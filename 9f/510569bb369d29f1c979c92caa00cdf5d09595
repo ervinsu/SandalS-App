@@ -1,0 +1,21 @@
+shared/src/commonMain/kotlin/com/shobaaa/id/shared/component/ProductCard.kt
+  s_10b9050f618390::t_6288c8c7f17183 67
+feature/admin_panel/manage_product/src/commonMain/kotlin/com/shobaaa/id/manage_product/ManageProductScreen.kt
+  s_10b9050f618390::t_a50f3e5f188ca4 1-3,69,76,200,321-323,325-331,333-338,340,362,371-419
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "9f510569bb369d29f1c979c92caa00cdf5d09595",
+  "prompts": {},
+  "sessions": {
+    "s_10b9050f618390": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "60e43b4f-2214-4c14-8fae-a5eefb0073c9",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Ervin Suriandi <ervin.suriandi@gdn-commerce.com>"
+    }
+  }
+}
