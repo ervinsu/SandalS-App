@@ -84,6 +84,7 @@ import sandals.shared.generated.resources.price
 import sandals.shared.generated.resources.size
 import sandals.shared.generated.resources.stock
 import sandals.shared.generated.resources.success_add_product
+import sandals.shared.generated.resources.success_edit_product
 import sandals.shared.generated.resources.title
 
 @OptIn(ExperimentalMaterial3Api::class) @Composable
@@ -100,6 +101,7 @@ fun ManageProductScreen(
   val isFormValid = viewModel.isFormValid
   val thumbnailUploaded = viewModel.thumbnailUploaderState
   val successAddProduct = stringResource(Res.string.success_add_product)
+  val successEditProduct = stringResource(Res.string.success_edit_product)
   val photoPicker = koinInject<PhotoPicker>()
   var openImagePicker by remember { mutableStateOf(false) }
 
@@ -357,12 +359,21 @@ fun ManageProductScreen(
           text = if (id == null) stringResource(Res.string.add_new_product)
           else stringResource(Res.string.edit_product), icon = if (id == null) Resources.Icon.Plus
           else Resources.Icon.Checkmark, enabled = isFormValid, onClick = {
-            viewModel.createProduct(onSuccess = {
-              messageBarState.addSuccess(successAddProduct)
-              navigateBack()
-            }, onError = {
-              messageBarState.addError(it)
-            })
+            if (id == null) {
+              viewModel.createProduct(onSuccess = {
+                messageBarState.addSuccess(successAddProduct)
+                navigateBack()
+              }, onError = {
+                messageBarState.addError(it)
+              })
+            } else {
+              viewModel.updateProduct(onSuccess = {
+                messageBarState.addSuccess(successEditProduct)
+                navigateBack()
+              }, onError = {
+                messageBarState.addError(it)
+              })
+            }
           })
       }
     }

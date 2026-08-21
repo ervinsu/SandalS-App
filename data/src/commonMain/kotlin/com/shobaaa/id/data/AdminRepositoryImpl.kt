@@ -145,6 +145,50 @@ class AdminRepositoryImpl: AdminRepository {
     }
   }
 
+  override suspend fun updateImageThumbnail(
+    productId: String, downloadUrl: String, onSuccess: () -> Unit, onError: (String) -> Unit
+  ) {
+    try {
+      val userId = getCurrentUserId()
+      if (userId != null) {
+        val firestore = Firebase.firestore
+        val productDocument = firestore.collection(collectionPath = "product").document(productId)
+        if (productDocument.get().exists) {
+          productDocument.update("thumbnail" to downloadUrl)
+          onSuccess()
+        } else {
+          onError("Product Not Found")
+        }
+      } else {
+        onError("User is not available.")
+      }
+    } catch (e: Exception) {
+      onError("Error while updating a thumbnail: ${e.message}")
+    }
+  }
+
+  override suspend fun updateProduct(
+    product: Product, onSuccess: () -> Unit, onError: (String) -> Unit
+  ) {
+    try {
+      val currentUserId = getCurrentUserId()
+      if (currentUserId != null) {
+        val firestore = Firebase.firestore
+        val productDocument = firestore.collection(collectionPath = "product").document(product.id)
+        if (productDocument.get().exists) {
+          productDocument.update(product.copy(title = product.title.lowercase()))
+          onSuccess()
+        } else {
+          onError("Product Not Found")
+        }
+      } else {
+        onError("User is not available.")
+      }
+    } catch (e: Exception) {
+      onError("Error while updating a product: ${e.message}")
+    }
+  }
+
   private fun extractFirebaseStoragePath(downloadUrl: String): String? {
     val startIndex = downloadUrl.indexOf("/o/") + 3
 

@@ -37,7 +37,7 @@ data class ManageProductState(
 
 class ManageProductViewModel(
   private val adminRepository: AdminRepository,
-  private val savedStateHandle: SavedStateHandle
+  savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
   private val productId = savedStateHandle.get<String>("id") ?: ""
@@ -166,6 +166,40 @@ class ManageProductViewModel(
     }
   }
 
+  fun updateProduct(
+    onSuccess: () -> Unit,
+    onError: (error: String) -> Unit,
+  ) {
+    if (!isFormValid) {
+      onError("Please fill in all required fields.")
+      return
+    }
+    screenState.apply {
+      viewModelScope.launch {
+        adminRepository.updateProduct(
+          product = Product(
+            id = id,
+            createdAt = createdAt,
+            title = title,
+            description = description,
+            thumbnail = thumbnail,
+            category = category.name,
+            size = productSizes,
+            price = price,
+            totalStock = totalProductStock,
+            color = color,
+            isNew = isNew,
+            isPopular = isPopular,
+            isDiscounted = isDiscounted
+          ), {
+            onSuccess()
+          }, {
+            onError.invoke(it)
+          })
+      }
+    }
+  }
+
   fun uploadThumbnailToStorage(
     file: File?,
     onSuccess: () -> Unit
@@ -182,12 +216,27 @@ class ManageProductViewModel(
         val downloadUrl = adminRepository.uploadImageToStorage(file)
 
         if (downloadUrl.isNullOrEmpty()) {
-          updateThumbnailUploaderState(RequestState.Error("Failed to upload image"))
-        } else {
+          throw Exception("Failed to get uploaded image from Firestore")
+        }
+        productId.takeIf { it.isNotEmpty() }?.let {
+          adminRepository.updateImageThumbnail(
+            productId = productId,
+            downloadUrl = downloadUrl,
+            onSuccess = {
+              onSuccess()
+              updateThumbnail(downloadUrl)
+              updateThumbnailUploaderState(RequestState.Success(Unit))
+            },
+            onError = {
+              updateThumbnailUploaderState(RequestState.Error(message = it))
+            }
+          )
+        } ?: run {
           onSuccess()
           updateThumbnail(downloadUrl)
           updateThumbnailUploaderState(RequestState.Success(Unit))
         }
+
       } catch (e: Exception) {
         updateThumbnailUploaderState(RequestState.Error(e.message ?: "Unknown error"))
       }
@@ -202,9 +251,24 @@ class ManageProductViewModel(
       adminRepository.deleteImageFromStorage(
         downloadUrl = screenState.thumbnail,
         onSuccess = {
-          updateThumbnail("")
-          onSuccess()
-          updateThumbnailUploaderState(RequestState.Idle)
+          productId.takeIf { it.isNotEmpty() }?.let {
+            viewModelScope.launch {
+              adminRepository.updateImageThumbnail(
+                productId = it,
+                downloadUrl = "",
+                onSuccess = {
+                  updateThumbnail("")
+                  onSuccess()
+                  updateThumbnailUploaderState(RequestState.Idle)
+                },
+                onError = onError
+              )
+            }
+          } ?: run {
+            updateThumbnail("")
+            onSuccess()
+            updateThumbnailUploaderState(RequestState.Idle)
+          }
         },
         onError = onError
       )
