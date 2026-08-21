@@ -1,0 +1,35 @@
+feature/admin_panel/manage_product/src/commonMain/kotlin/com/shobaaa/id/manage_product/ManageProductViewModel.kt
+  s_1d29417fa0faff::t_a1a6db84038c40 169-202
+  s_1d29417fa0faff::t_3902953b973ed6 232,254-271
+  s_1d29417fa0faff::t_839268e296c532 229-231
+  s_1d29417fa0faff::t_47ac809d8e8386 233-234
+  s_1d29417fa0faff::t_f1329e140d4f9e 40,219-228,239
+data/src/commonMain/kotlin/com/shobaaa/id/data/AdminRepositoryImpl.kt
+  s_1d29417fa0faff::t_a9ece91a831e96 155-161,177-178,180-183
+  s_1d29417fa0faff::t_784f91b860e3df 179
+  s_1d29417fa0faff::t_06644bd55f9547 151,154,162-176,184-189
+  s_1d29417fa0faff::t_6e3aa38c0adf8b 148-150
+  s_1d29417fa0faff::t_6df93a04d60a99 152-153
+  s_1d29417fa0faff::t_13c86eb05846fc 190-191
+feature/admin_panel/manage_product/src/commonMain/kotlin/com/shobaaa/id/manage_product/ManageProductScreen.kt
+  s_1d29417fa0faff::t_7e1c326f208149 364-371
+  s_1d29417fa0faff::t_9208882d155ef6 362-363
+  s_1d29417fa0faff::t_3ceee3b20b3295 372-374
+  s_1d29417fa0faff::t_a21946302ff623 87,104,375-376
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "60a08b633f025187d2d31c7ad92c2c98e79825a2",
+  "prompts": {},
+  "sessions": {
+    "s_1d29417fa0faff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0333c4f-1287-4ec4-935e-5fe7db137e1b",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ervin Suriandi <ervin.suriandi@gdn-commerce.com>"
+    }
+  }
+}
