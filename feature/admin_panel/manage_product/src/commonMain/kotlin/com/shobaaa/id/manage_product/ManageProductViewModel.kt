@@ -166,6 +166,15 @@ class ManageProductViewModel(
     }
   }
 
+  fun deleteProduct(
+    onSuccess: () -> Unit,
+    onError: (String) -> Unit
+  ) {
+    viewModelScope.launch {
+      adminRepository.deleteProduct(productId, onSuccess, onError)
+    }
+  }
+
   fun updateProduct(
     onSuccess: () -> Unit,
     onError: (error: String) -> Unit,

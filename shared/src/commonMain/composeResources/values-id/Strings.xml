@@ -23,4 +23,5 @@
     <string name ="error_edit_size">Stok atau ukuran belum lengkap</string>
     <string name ="success_add_product">Berhasil menambahkan produk</string>
     <string name ="success_edit_product">Berhasil mengubah produk</string>
+    <string name ="delete">Hapus</string>
 </resources>

@@ -189,6 +189,28 @@ class AdminRepositoryImpl: AdminRepository {
     }
   }
 
+  override suspend fun deleteProduct(
+    productId: String, onSuccess: () -> Unit, onError: (String) -> Unit
+  ) {
+    try {
+      val currentUserId = getCurrentUserId()
+      if (currentUserId != null) {
+        val firestore = Firebase.firestore
+        val productDocument = firestore.collection(collectionPath = "product").document(productId)
+        if (productDocument.get().exists) {
+          productDocument.delete()
+          onSuccess()
+        } else {
+          onError("Product Not Found")
+        }
+      } else {
+        onError("User is not available.")
+      }
+    } catch (e: Exception) {
+      onError("Error while deleting a product: ${e.message}")
+    }
+  }
+
   private fun extractFirebaseStoragePath(downloadUrl: String): String? {
     val startIndex = downloadUrl.indexOf("/o/") + 3
 
