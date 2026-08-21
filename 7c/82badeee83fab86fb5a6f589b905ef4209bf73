@@ -1,0 +1,21 @@
+data/src/commonMain/kotlin/com/shobaaa/id/data/domain/AdminRepository.kt
+  s_1d29417fa0faff::t_1bea5f65dbffa5 33-34
+data/src/commonMain/kotlin/com/shobaaa/id/data/AdminRepositoryImpl.kt
+  s_1d29417fa0faff::t_12cc59cfe20f23 192-213
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "7c82badeee83fab86fb5a6f589b905ef4209bf73",
+  "prompts": {},
+  "sessions": {
+    "s_1d29417fa0faff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0333c4f-1287-4ec4-935e-5fe7db137e1b",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ervin Suriandi <ervin.suriandi@gdn-commerce.com>"
+    }
+  }
+}
