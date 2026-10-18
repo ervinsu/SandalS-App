@@ -21,6 +21,7 @@ class HomeGraphViewModel(
       started = SharingStarted.WhileSubscribed(5000),
       initialValue = RequestState.Loading
     )
+
   fun signOut(
     onSuccess: ()->Unit,
     onError: (String)->Unit,

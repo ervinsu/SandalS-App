@@ -14,6 +14,11 @@ import kotlinx.coroutines.flow.collectLatest
 
 class CustomerRepositoryImpl: CustomerRepository {
 
+  companion object {
+    private const val PRIVATE_DATA = "privateData"
+    private const val ROLE = "role"
+  }
+
   override suspend fun createCustomer(
     user: FirebaseUser?, onSuccess: () -> Unit, onError: (String) -> Unit
   ) {
@@ -32,6 +37,10 @@ class CustomerRepositoryImpl: CustomerRepository {
           onSuccess()
         } else {
           customerCollection.document(user.uid).set(customer)
+          customerCollection.document(user.uid)
+            .collection(PRIVATE_DATA)
+            .document(ROLE)
+            .set(mapOf("isAdmin" to false))
           onSuccess()
         }
       } else {
