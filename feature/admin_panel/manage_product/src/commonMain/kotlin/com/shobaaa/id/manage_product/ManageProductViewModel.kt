@@ -156,7 +156,10 @@ class ManageProductViewModel(
             size = productSizes,
             price = price,
             totalStock = totalProductStock,
-            color = color
+            color = color,
+            isNew = isNew,
+            isDiscounted = isDiscounted,
+            isPopular = isPopular
           ), {
             onSuccess()
           }, {

@@ -21,7 +21,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "auth"
+            baseName = "home"
             isStatic = true
         }
     }
@@ -45,6 +45,7 @@ kotlin {
 
             implementation(project(path = ":shared"))
             implementation(project(path = ":data"))
+            implementation(project(path = ":feature:home:products_overview"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -53,7 +54,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.shobaaa.id.auth"
+    namespace = "com.shobaaa.id.home"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

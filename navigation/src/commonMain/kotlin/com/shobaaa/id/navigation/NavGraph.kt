@@ -36,9 +36,10 @@ fun SetupNavGraph(startDestination: Screen = Screen.Auth) {
           }
         },
         navigateToAdmin = {
-          navController.navigate(Screen.AdminPanel) {
-            popUpTo<Screen.AdminPanel> { inclusive = true }
-          }
+          navController.navigate(Screen.AdminPanel)
+        },
+        navigateToDetails = { productId ->
+          navController.navigate(Screen.Details(id = productId))
         }
       )
     }
@@ -56,6 +57,14 @@ fun SetupNavGraph(startDestination: Screen = Screen.Auth) {
       val id = it.toRoute<Screen.ManageProduct>().id
       ManageProductScreen(
         id = id, navigateBack = { navController.navigateUp() })
+    }
+
+    composable<Screen.Details> {
+//      DetailsScreen(
+//        navigateBack = {
+//          navController.navigateUp()
+//        }
+//      )
     }
   }
 }

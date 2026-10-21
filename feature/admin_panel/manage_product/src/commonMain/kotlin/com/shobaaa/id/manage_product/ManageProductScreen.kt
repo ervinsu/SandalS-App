@@ -26,6 +26,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -55,8 +57,10 @@ import com.shobaaa.id.shared.IconPrimary
 import com.shobaaa.id.shared.Resources
 import com.shobaaa.id.shared.Surface
 import com.shobaaa.id.shared.SurfaceBrand
+import com.shobaaa.id.shared.SurfaceDarker
 import com.shobaaa.id.shared.SurfaceError
 import com.shobaaa.id.shared.SurfaceLighter
+import com.shobaaa.id.shared.SurfaceSecondary
 import com.shobaaa.id.shared.TextPrimary
 import com.shobaaa.id.shared.TextSecondary
 import com.shobaaa.id.shared.TextWhite
@@ -391,6 +395,84 @@ fun ManageProductScreen(
               keyboardType = KeyboardType.Number
             )
           )
+
+          Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+          ) {
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+              Text(
+                modifier = Modifier.padding(start = 12.dp),
+                text = "New",
+                fontSize = FontSize.REGULAR,
+                color = TextPrimary
+              )
+              Switch(
+                checked = screenState.isNew,
+                onCheckedChange = viewModel::updateNew,
+                colors = SwitchDefaults.colors(
+                  checkedTrackColor = SurfaceSecondary,
+                  uncheckedTrackColor = SurfaceDarker,
+                  checkedThumbColor = Surface,
+                  uncheckedThumbColor = Surface,
+                  checkedBorderColor = SurfaceSecondary,
+                  uncheckedBorderColor = SurfaceDarker
+                )
+              )
+            }
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+              Text(
+                modifier = Modifier.padding(start = 12.dp),
+                text = "Popular",
+                fontSize = FontSize.REGULAR,
+                color = TextPrimary
+              )
+              Switch(
+                checked = screenState.isPopular,
+                onCheckedChange = viewModel::updatePopular,
+                colors = SwitchDefaults.colors(
+                  checkedTrackColor = SurfaceSecondary,
+                  uncheckedTrackColor = SurfaceDarker,
+                  checkedThumbColor = Surface,
+                  uncheckedThumbColor = Surface,
+                  checkedBorderColor = SurfaceSecondary,
+                  uncheckedBorderColor = SurfaceDarker
+                )
+              )
+            }
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+              Text(
+                modifier = Modifier.padding(start = 12.dp),
+                text = "Discounted",
+                fontSize = FontSize.REGULAR,
+                color = TextPrimary
+              )
+              Switch(
+                checked = screenState.isDiscounted,
+                onCheckedChange = viewModel::updateDiscounted,
+                colors = SwitchDefaults.colors(
+                  checkedTrackColor = SurfaceSecondary,
+                  uncheckedTrackColor = SurfaceDarker,
+                  checkedThumbColor = Surface,
+                  uncheckedThumbColor = Surface,
+                  checkedBorderColor = SurfaceSecondary,
+                  uncheckedBorderColor = SurfaceDarker
+                )
+              )
+            }
+          }
         }
         PrimaryButton(
           text = if (id == null) stringResource(Res.string.add_new_product)

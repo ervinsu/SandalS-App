@@ -45,6 +45,7 @@ import com.shobaaa.id.home.domain.BottomBarDestination
 import com.shobaaa.id.home.domain.CustomDrawerState
 import com.shobaaa.id.home.domain.isOpened
 import com.shobaaa.id.home.domain.opposite
+import com.shobaaa.id.products_overview.ProductOverviewScreen
 import com.shobaaa.id.shared.Alpha
 import com.shobaaa.id.shared.BebasNeueFont
 import com.shobaaa.id.shared.FontSize
@@ -65,7 +66,8 @@ import rememberMessageBarState
 @OptIn(ExperimentalMaterial3Api::class) @Composable
 fun HomeGraphScreen(
   navigateToAuth: () -> Unit,
-  navigateToAdmin: () -> Unit
+  navigateToAdmin: () -> Unit,
+  navigateToDetails: (String) -> Unit
 ) {
   val navController = rememberNavController()
   val currentRoute = navController.currentBackStackEntryAsState()
@@ -208,17 +210,17 @@ fun HomeGraphScreen(
         ) {
           Column(
             modifier = Modifier.fillMaxSize()
-              .padding(
-                top = paddingValues.calculateTopPadding(),
-                bottom = paddingValues.calculateBottomPadding()
-              )
           ) {
             NavHost(
               modifier = Modifier.weight(1f),
               navController = navController,
               startDestination = Screen.ProductsOverview
             ) {
-              composable<Screen.ProductsOverview> {  }
+              composable<Screen.ProductsOverview> {
+                ProductOverviewScreen(
+                  navigateToDetails = navigateToDetails
+                )
+              }
               composable<Screen.Cart> {  }
               composable<Screen.Categories> {  }
             }
