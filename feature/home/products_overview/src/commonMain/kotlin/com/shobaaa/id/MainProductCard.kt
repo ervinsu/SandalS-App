@@ -170,7 +170,7 @@ fun MainProductCard(
           }
         }
         Text(
-          text = "$${product.price}",
+          text = "Rp. ${product.price}",
           fontSize = FontSize.EXTRA_REGULAR,
           color = TextBrand,
           fontWeight = FontWeight.Medium
