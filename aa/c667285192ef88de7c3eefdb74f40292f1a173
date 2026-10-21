@@ -1,0 +1,23 @@
+feature/home/products_overview/src/commonMain/kotlin/com/shobaaa/id/products_overview/ProductOverviewScreen.kt
+  s_397107208a7174::t_7513770401b891 68-109
+  s_397107208a7174::t_5974c76fcf5437 65-67
+  s_397107208a7174::t_1d8e0a62b20af7 110-112
+feature/home/src/commonMain/kotlin/com/shobaaa/id/home/HomeGraphScreen.kt
+  s_397107208a7174::t_a5aa1211fb8713 48,69-70,219-223
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "aac667285192ef88de7c3eefdb74f40292f1a173",
+  "prompts": {},
+  "sessions": {
+    "s_397107208a7174": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7e16a61e-f26c-42f8-898c-6b608fee95e5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ervin Suriandi <ervin.suriandi@gdn-commerce.com>"
+    }
+  }
+}
